@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人网站 - 专业展示</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>个人品牌</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我</a></li>
+                <li><a href="portfolio.html">作品集</a></li>
+                <li><a href="skills.html">技能服务</a></li>
+                <li><a href="courses.html">课程管理</a></li>
+                <li><a href="resume.html">履历</a></li>
+                <li><a href="blog.html">博客</a></li>
+                <li><a href="contact.html">联系我</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 自动保存提示 -->
+    <div id="autoSaveNotification" class="auto-save-notification" style="display:none;">
+        ✅ 内容已自动保存
+    </div>
+
+    <!-- 个人信息输入区域 -->
+    <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; margin: 20px 0; border-radius: 15px; color: white;">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 30px; font-size: 2.5em;">✨ 创建您的个人网站 ✨</h2>
+            <div style="max-width: 600px; margin: 0 auto; background: rgba(255,255,255,0.95); padding: 30px; border-radius: 10px; color: #333;">
+                <h3 style="margin-bottom: 20px; color: #667eea;">👤 请输入您的个人信息</h3>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #555;">您的姓名：</label>
+                    <input type="text" id="userName" placeholder="请输入您的真实姓名" 
+                           style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;"
+                           onblur="saveUserName(this.value)">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #555;">您的职业：</label>
+                    <input type="text" id="userJob" placeholder="例如：前端开发工程师、UI设计师等" 
+                           style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;"
+                           onblur="saveUserJob(this.value)">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #555;">一句话介绍：</label>
+                    <textarea id="userIntro" placeholder="用一句话介绍自己..." 
+                              style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; min-height: 80px; resize: vertical;"
+                              onblur="saveUserIntro(this.value)"></textarea>
+                </div>
+                
+                <button onclick="updateHomepage()" style="background: #667eea; color: white; border: none; padding: 12px 30px; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 10px;">
+                    🚀 更新我的网站
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero 区域 -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 id="heroTitle">欢迎来到<span id="displayName">您的</span>个人空间</h1>
+                <p id="heroDescription">我是<span id="displayJob">您的职业</span>，<span id="displayIntro">请填写您的介绍</span></p>
+                <div class="hero-buttons">
+                    <a href="about.html" class="btn btn-primary">关于我</a>
+                    <a href="portfolio.html" class="btn btn-secondary">查看作品</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div id="imageContainer" class="image-container">
+                    <img id="profileImage" src="" alt="个人照片" style="display:none;">
+                    <div id="placeholderImage" class="placeholder-image">
+                        <span>个人照片/设计图</span>
+                    </div>
+                    <input type="file" id="imageUpload" accept="image/*" style="display:none;">
+                    <button id="uploadBtn" class="upload-btn" style="display:none;">📷 上传照片</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 快速链接 -->
+    <section class="quick-links">
+        <div class="container">
+            <h2>快速访问</h2>
+            <div class="link-grid">
+                <a href="portfolio.html" class="link-card">
+                    <h3>作品展示</h3>
+                    <p>查看我的最新项目作品</p>
+                </a>
+                <a href="skills.html" class="link-card">
+                    <h3>技能专长</h3>
+                    <p>了解我的专业技能</p>
+                </a>
+                <a href="resume.html" class="link-card">
+                    <h3>详细履历</h3>
+                    <p>查看完整工作经历</p>
+                </a>
+                <a href="contact.html" class="link-card">
+                    <h3>联系合作</h3>
+                    <p>立即与我取得联系</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 个人网站. 保留所有权利.</p>
+            <p><a href="privacy.html">隐私政策</a> | <a href="sitemap.html">站点地图</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // 保存用户姓名
+        function saveUserName(name) {
+            localStorage.setItem('userName', name);
+            document.getElementById('displayName').textContent = name || '您的';
+            showSuccess('姓名已保存！');
+        }
+        
+        // 保存用户职业
+        function saveUserJob(job) {
+            localStorage.setItem('userJob', job);
+            document.getElementById('displayJob').textContent = job || '您的职业';
+            showSuccess('职业已保存！');
+        }
+        
+        // 保存用户介绍
+        function saveUserIntro(intro) {
+            localStorage.setItem('userIntro', intro);
+            document.getElementById('displayIntro').textContent = intro || '请填写您的介绍';
+            showSuccess('介绍已保存！');
+        }
+        
+        // 更新整个首页
+        function updateHomepage() {
+            const name = document.getElementById('userName').value;
+            const job = document.getElementById('userJob').value;
+            const intro = document.getElementById('userIntro').value;
+            
+            if (name) saveUserName(name);
+            if (job) saveUserJob(job);
+            if (intro) saveUserIntro(intro);
+            
+            showSuccess('✅ 网站已更新！');
+            
+            // 滚动到Hero区域查看效果
+            document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 显示成功消息
+        function showSuccess(message) {
+            const notification = document.getElementById('autoSaveNotification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        // 页面加载时恢复用户信息
+        window.addEventListener('load', function() {
+            const savedName = localStorage.getItem('userName');
+            const savedJob = localStorage.getItem('userJob');
+            const savedIntro = localStorage.getItem('userIntro');
+            
+            if (savedName) {
+                document.getElementById('displayName').textContent = savedName;
+                document.getElementById('userName').value = savedName;
+            }
+            
+            if (savedJob) {
+                document.getElementById('displayJob').textContent = savedJob;
+                document.getElementById('userJob').value = savedJob;
+            }
+            
+            if (savedIntro) {
+                document.getElementById('displayIntro').textContent = savedIntro;
+                document.getElementById('userIntro').value = savedIntro;
+            }
+            
+            // 显示欢迎提示
+            setTimeout(() => {
+                showSuccess('👋 欢迎！请填写您的信息创建个性化网站');
+            }, 1000);
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

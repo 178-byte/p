@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集 - 个人网站</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .upload-area {
+            width: 100%;
+            height: 200px;
+            border: 3px dashed #3498db;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+        .upload-area:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        .edit-area {
+            padding: 8px;
+            margin: 5px 0;
+            border: 2px dashed #4caf50;
+            border-radius: 5px;
+            background: #f1f8e9;
+            cursor: text;
+        }
+        .edit-area:hover {
+            background: #dcedc8;
+        }
+        .project-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #1976d2;
+        }
+        .btn-danger {
+            background: #f44336;
+        }
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
+        .help-text {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>个人品牌</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我</a></li>
+                <li><a href="portfolio.html" class="active">作品集</a></li>
+                <li><a href="skills.html">技能服务</a></li>
+                <li><a href="courses.html">课程管理</a></li>
+                <li><a href="resume.html">履历</a></li>
+                <li><a href="blog.html">博客</a></li>
+                <li><a href="contact.html">联系我</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 成功提示 -->
+    <div id="successMessage" class="success-message">✅ 操作成功！</div>
+
+    <!-- 页面头部 -->
+    <header class="page-header">
+        <h1>作品集</h1>
+        <p>展示我的项目作品和设计案例</p>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="page-content">
+        <div class="container">
+            <!-- 使用指南 -->
+            <div class="help-text">
+                <h3>🎯 使用指南</h3>
+                <ul>
+                    <li><strong>上传图片：</strong>点击灰色区域的"📷 选择图片文件"按钮</li>
+                    <li><strong>编辑文字：</strong>直接在绿色边框的文本框中输入内容</li>
+                    <li><strong>保存内容：</strong>所有内容自动保存到浏览器</li>
+                    <li><strong>添加项目：</strong>点击"➕ 添加新项目"按钮</li>
+                </ul>
+            </div>
+
+            <!-- 项目展示 -->
+            <section class="section">
+                <h2>项目展示</h2>
+                
+                <!-- 项目1 -->
+                <div class="project-card">
+                    <h3>项目 1</h3>
+                    
+                    <!-- 图片上传区域 -->
+                    <div class="upload-area" onclick="document.getElementById('imageUpload1').click()">
+                        <span id="imagePreview1">📷 点击选择图片文件</span>
+                    </div>
+                    <input type="file" id="imageUpload1" accept="image/*" style="display: none;" onchange="handleImageUpload(1)">
+                    
+                    <!-- 文字编辑区域 -->
+                    <p><strong>项目名称：</strong></p>
+                    <div contenteditable="true" class="edit-area" onblur="saveContent('project1_title', this.textContent)">电商平台重构项目</div>
+                    
+                    <p><strong>项目类别：</strong></p>
+                    <div contenteditable="true" class="edit-area" onblur="saveContent('project1_category', this.textContent)">Web开发</div>
+                    
+                    <p><strong>技术栈：</strong></p>
+                    <div contenteditable="true" class="edit-area" onblur="saveContent('project1_tech', this.textContent)">React, Node.js, MongoDB</div>
+                    
+                    <p><strong>项目时长：</strong></p>
+                    <div contenteditable="true" class="edit-area" onblur="saveContent('project1_duration', this.textContent)">6个月</div>
+                    
+                    <p><strong>项目成果：</strong></p>
+                    <div contenteditable="true" class="edit-area" onblur="saveContent('project1_result', this.textContent)">性能提升40%，用户体验显著改善</div>
+                    
+                    <p><strong>项目描述：</strong></p>
+                    <div contenteditable="true" class="edit-area" style="min-height: 80px;" onblur="saveContent('project1_desc', this.textContent)">这是一个大型电商平台的重构项目，采用现代化技术栈重构原有系统，大幅提升了系统性能和用户体验。</div>
+                    
+                    <button class="btn btn-danger" onclick="deleteProject(1)">🗑️ 删除项目</button>
+                </div>
+
+                <!-- 项目2 -->
+                <div class="project-card">
+                    <h3>项目 2</h3>
+                    
+                    <!-- 图片上传区域 -->
+                    <div class="upload-area" onclick="document.getElementById('imageUpload2').click()">
+                        <span id="imagePreview2">📷 点击选择图片文件</span>
+                    </div>
+                    <input type="file" id="imageUpload2" accept="image/*" style="display: none;" onchange="handleImageUpload(2)">
+                    
+                    <!-- 文字编辑区域 -->
+                    <p><strong>项目名称：</strong></p>
+                    <div contenteditable="true" class="edit-area" onblur="saveContent('project2_title', this.textContent)">企业级管理系统UI设计</div>
+                    
+                    <p><strong>项目类别：</strong></p>
+                    <div contenteditable="true" class="edit-area" onblur="saveContent('project2_category', this.textContent)">UI设计</div>
+                    
+                    <p><strong>使用工具：</strong></p>
+                    <div contenteditable="true" class="edit-area" onblur="saveContent('project2_tools', this.textContent)">Figma, Adobe XD</div>
+                    
+                    <p><strong>设计周期：</strong></p>
+                    <div contenteditable="true" class="edit-area" onblur="saveContent('project2_period', this.textContent)">3个月</div>
+                    
+                    <p><strong>设计特色：</strong></p>
+                    <div contenteditable="true" class="edit-area" onblur="saveContent('project2_features', this.textContent)">响应式设计，组件化思维</div>
+                    
+                    <p><strong>项目描述：</strong></p>
+                    <div contenteditable="true" class="edit-area" style="min-height: 80px;" onblur="saveContent('project2_desc', this.textContent)">为大型企业管理系统设计现代化的用户界面，注重用户体验和系统易用性。</div>
+                    
+                    <button class="btn btn-danger" onclick="deleteProject(2)">🗑️ 删除项目</button>
+                </div>
+
+                <!-- 添加项目按钮 -->
+                <div style="text-align: center; margin: 30px 0;">
+                    <button class="btn" onclick="addNewProject()">➕ 添加新项目</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 个人网站. 保留所有权利.</p>
+            <p><a href="privacy.html">隐私政策</a> | <a href="sitemap.html">站点地图</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // 处理图片上传
+        function handleImageUpload(projectId) {
+            const fileInput = document.getElementById('imageUpload' + projectId);
+            const file = fileInput.files[0];
+            
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview' + projectId);
+                    preview.innerHTML = `<img src="${e.target.result}" style="max-width: 100%; max-height: 180px; border-radius: 8px;">`;
+                    
+                    // 保存图片到localStorage
+                    localStorage.setItem('projectImage' + projectId, e.target.result);
+                    
+                    showSuccess('✅ 图片上传成功！');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // 保存文字内容
+        function saveContent(key, content) {
+            localStorage.setItem(key, content);
+            showSuccess('✅ 内容已保存！');
+        }
+        
+        // 删除项目
+        function deleteProject(projectId) {
+            if (confirm('确定要删除这个项目吗？')) {
+                const projectCard = event.target.closest('.project-card');
+                projectCard.remove();
+                
+                // 清除相关的localStorage数据
+                const keys = Object.keys(localStorage);
+                keys.forEach(key => {
+                    if (key.includes('project' + projectId)) {
+                        localStorage.removeItem(key);
+                    }
+                });
+                
+                showSuccess('✅ 项目已删除！');
+            }
+        }
+        
+        // 添加新项目
+        function addNewProject() {
+            const projectId = Date.now();
+            const newProject = document.createElement('div');
+            newProject.className = 'project-card';
+            newProject.innerHTML = `
+                <h3>新项目 ${projectId}</h3>
+                
+                <div class="upload-area" onclick="document.getElementById('imageUpload${projectId}').click()">
+                    <span id="imagePreview${projectId}">📷 点击选择图片文件</span>
+                </div>
+                <input type="file" id="imageUpload${projectId}" accept="image/*" style="display: none;" onchange="handleImageUpload(${projectId})">
+                
+                <p><strong>项目名称：</strong></p>
+                <div contenteditable="true" class="edit-area" onblur="saveContent('project${projectId}_title', this.textContent)">新项目名称</div>
+                
+                <p><strong>项目类别：</strong></p>
+                <div contenteditable="true" class="edit-area" onblur="saveContent('project${projectId}_category', this.textContent)">项目类别</div>
+                
+                <p><strong>项目描述：</strong></p>
+                <div contenteditable="true" class="edit-area" style="min-height: 80px;" onblur="saveContent('project${projectId}_desc', this.textContent)">请添加项目描述...</div>
+                
+                <button class="btn btn-danger" onclick="deleteProject(${projectId})">🗑️ 删除项目</button>
+            `;
+            
+            // 插入到添加项目按钮之前
+            const addButton = document.querySelector('button[onclick="addNewProject()"]').parentElement;
+            addButton.parentElement.insertBefore(newProject, addButton);
+            
+            showSuccess('✅ 新项目已添加！');
+        }
+        
+        // 显示成功消息
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+        
+        // 页面加载时恢复保存的内容
+        window.addEventListener('load', function() {
+            // 恢复文字内容
+            const keys = Object.keys(localStorage);
+            keys.forEach(key => {
+                const value = localStorage.getItem(key);
+                if (key.startsWith('project') && !key.includes('Image')) {
+                    // 找到对应的编辑区域
+                    const elements = document.querySelectorAll('.edit-area');
+                    elements.forEach(element => {
+                        if (element.getAttribute('onblur').includes(key)) {
+                            element.textContent = value;
+                        }
+                    });
+                }
+                
+                // 恢复图片
+                if (key.startsWith('projectImage')) {
+                    const projectId = key.replace('projectImage', '');
+                    const preview = document.getElementById('imagePreview' + projectId);
+                    if (preview) {
+                        preview.innerHTML = `<img src="${value}" style="max-width: 100%; max-height: 180px; border-radius: 8px;">`;
+                    }
+                }
+            });
+            
+            showSuccess('💡 欢迎使用！点击绿色框编辑文字，点击灰色区域上传图片');
+        });
+    </script>
+</body>
+</html>

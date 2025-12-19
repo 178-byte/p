@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程管理 - 个人网站</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .upload-area {
+            width: 100%;
+            height: 150px;
+            border: 3px dashed #3498db;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            flex-direction: column;
+        }
+        .upload-area:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        .edit-area {
+            padding: 8px;
+            margin: 5px 0;
+            border: 2px dashed #4caf50;
+            border-radius: 5px;
+            background: #f1f8e9;
+            cursor: text;
+        }
+        .edit-area:hover {
+            background: #dcedc8;
+        }
+        .course-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #1976d2;
+        }
+        .btn-danger {
+            background: #f44336;
+        }
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
+        .file-item {
+            background: #f5f5f5;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .file-icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
+        .help-text {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .course-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>个人品牌</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我</a></li>
+                <li><a href="portfolio.html">作品集</a></li>
+                <li><a href="skills.html">技能服务</a></li>
+                <li><a href="courses.html" class="active">课程管理</a></li>
+                <li><a href="resume.html">履历</a></li>
+                <li><a href="blog.html">博客</a></li>
+                <li><a href="contact.html">联系我</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 成功提示 -->
+    <div id="successMessage" class="success-message">✅ 操作成功！</div>
+
+    <!-- 页面头部 -->
+    <header class="page-header">
+        <h1>课程管理</h1>
+        <p>上传和管理您的课程内容</p>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="page-content">
+        <div class="container">
+            <!-- 使用指南 -->
+            <div class="help-text">
+                <h3>🎯 使用指南</h3>
+                <ul>
+                    <li><strong>上传课程材料：</strong>点击蓝色虚线区域上传课程文件（支持图片、PDF、文档等）</li>
+                    <li><strong>编辑课程信息：</strong>直接在绿色边框的文本框中输入内容</li>
+                    <li><strong>保存内容：</strong>所有内容自动保存到浏览器</li>
+                    <li><strong>添加课程：</strong>点击"➕ 添加新课程"按钮</li>
+                </ul>
+            </div>
+
+            <!-- 课程展示 -->
+            <section class="section">
+                <h2>我的课程</h2>
+                
+                <!-- 课程1 -->
+                <div class="course-card">
+                    <h3>课程 1</h3>
+                    
+                    <!-- 课程信息 -->
+                    <div class="course-meta">
+                        <div>
+                            <strong>课程名称：</strong>
+                            <div contenteditable="true" class="edit-area" onblur="saveContent('course1_title', this.textContent)">Web开发基础</div>
+                        </div>
+                        <div>
+                            <strong>课程时长：</strong>
+                            <div contenteditable="true" class="edit-area" onblur="saveContent('course1_duration', this.textContent)">4周</div>
+                        </div>
+                        <div>
+                            <strong>课程难度：</strong>
+                            <div contenteditable="true" class="edit-area" onblur="saveContent('course1_level', this.textContent)">初级</div>
+                        </div>
+                        <div>
+                            <strong>授课方式：</strong>
+                            <div contenteditable="true" class="edit-area" onblur="saveContent('course1_method', this.textContent)">在线直播</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 课程描述 -->
+                    <div>
+                        <strong>课程描述：</strong>
+                        <div contenteditable="true" class="edit-area" style="min-height: 80px;" onblur="saveContent('course1_desc', this.textContent)">本课程将介绍Web开发的基础知识，包括HTML、CSS和JavaScript等核心技术。</div>
+                    </div>
+                    
+                    <!-- 文件上传区域 -->
+                    <div>
+                        <strong>课程材料：</strong>
+                        <div class="upload-area" onclick="document.getElementById('fileUpload1').click()">
+                            <span id="filePreview1">📁 点击上传课程文件</span>
+                            <small style="margin-top: 5px; color: #666;">支持图片、PDF、文档等多种格式</small>
+                        </div>
+                        <input type="file" id="fileUpload1" multiple accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip" style="display: none;" onchange="handleFileUpload(1)">
+                        <div id="fileList1"></div>
+                    </div>
+                    
+                    <button class="btn btn-danger" onclick="deleteCourse(1)">🗑️ 删除课程</button>
+                </div>
+
+                <!-- 添加课程按钮 -->
+                <div style="text-align: center; margin: 30px 0;">
+                    <button class="btn" onclick="addNewCourse()">➕ 添加新课程</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 个人网站. 保留所有权利.</p>
+            <p><a href="privacy.html">隐私政策</a> | <a href="sitemap.html">站点地图</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // 处理文件上传
+        function handleFileUpload(courseId) {
+            const fileInput = document.getElementById('fileUpload' + courseId);
+            const files = Array.from(fileInput.files);
+            const fileList = document.getElementById('fileList' + courseId);
+            
+            files.forEach(file => {
+                // 读取文件为DataURL
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // 创建文件项
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    
+                    // 根据文件类型选择图标
+                    let fileIcon = '📄';
+                    if (file.type.startsWith('image/')) {
+                        fileIcon = '🖼️';
+                    } else if (file.type === 'application/pdf') {
+                        fileIcon = '📊';
+                    } else if (file.type.includes('document')) {
+                        fileIcon = '📝';
+                    } else if (file.type.includes('presentation')) {
+                        fileIcon = '🎬';
+                    } else if (file.type.includes('spreadsheet')) {
+                        fileIcon = '📈';
+                    } else if (file.type === 'application/zip') {
+                        fileIcon = '📦';
+                    }
+                    
+                    fileItem.innerHTML = `
+                        <div style="display: flex; align-items: center;">
+                            <span class="file-icon">${fileIcon}</span>
+                            <span>${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                        </div>
+                        <button onclick="deleteFile(this, ${courseId}, '${file.name}')" style="background: none; border: none; color: #f44336; cursor: pointer;">❌</button>
+                    `;
+                    
+                    fileList.appendChild(fileItem);
+                    
+                    // 保存文件到localStorage
+                    const courseFiles = JSON.parse(localStorage.getItem('courseFiles' + courseId) || '[]');
+                    courseFiles.push({
+                        name: file.name,
+                        type: file.type,
+                        size: file.size,
+                        data: e.target.result
+                    });
+                    localStorage.setItem('courseFiles' + courseId, JSON.stringify(courseFiles));
+                    
+                    showSuccess('✅ 文件上传成功！');
+                };
+                
+                // 对于小文件直接读取，大文件可以考虑其他方式
+                if (file.size < 10 * 1024 * 1024) { // 10MB以下
+                    reader.readAsDataURL(file);
+                } else {
+                    // 大文件可以只保存文件名和基本信息
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = `
+                        <div style="display: flex; align-items: center;">
+                            <span class="file-icon">📄</span>
+                            <span>${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                        </div>
+                        <button onclick="deleteFile(this, ${courseId}, '${file.name}')" style="background: none; border: none; color: #f44336; cursor: pointer;">❌</button>
+                    `;
+                    fileList.appendChild(fileItem);
+                    
+                    const courseFiles = JSON.parse(localStorage.getItem('courseFiles' + courseId) || '[]');
+                    courseFiles.push({
+                        name: file.name,
+                        type: file.type,
+                        size: file.size,
+                        data: null
+                    });
+                    localStorage.setItem('courseFiles' + courseId, JSON.stringify(courseFiles));
+                    
+                    showSuccess('✅ 文件信息已保存！');
+                }
+            });
+            
+            // 清空文件输入，以便可以再次选择相同的文件
+            fileInput.value = '';
+        }
+        
+        // 保存文字内容
+        function saveContent(key, content) {
+            localStorage.setItem(key, content);
+            showSuccess('✅ 内容已保存！');
+        }
+        
+        // 删除文件
+        function deleteFile(button, courseId, fileName) {
+            // 从DOM中删除文件项
+            button.closest('.file-item').remove();
+            
+            // 从localStorage中删除文件
+            const courseFiles = JSON.parse(localStorage.getItem('courseFiles' + courseId) || '[]');
+            const updatedFiles = courseFiles.filter(file => file.name !== fileName);
+            localStorage.setItem('courseFiles' + courseId, JSON.stringify(updatedFiles));
+            
+            showSuccess('✅ 文件已删除！');
+        }
+        
+        // 删除课程
+        function deleteCourse(courseId) {
+            if (confirm('确定要删除这个课程吗？')) {
+                const courseCard = event.target.closest('.course-card');
+                courseCard.remove();
+                
+                // 清除相关的localStorage数据
+                const keys = Object.keys(localStorage);
+                keys.forEach(key => {
+                    if (key.includes('course' + courseId)) {
+                        localStorage.removeItem(key);
+                    }
+                });
+                
+                showSuccess('✅ 课程已删除！');
+            }
+        }
+        
+        // 添加新课程
+        function addNewCourse() {
+            const courseList = document.querySelector('.section');
+            const courseCount = courseList.querySelectorAll('.course-card').length + 1;
+            
+            const newCourse = document.createElement('div');
+            newCourse.className = 'course-card';
+            newCourse.innerHTML = `
+                <h3>课程 ${courseCount}</h3>
+                
+                <!-- 课程信息 -->
+                <div class="course-meta">
+                    <div>
+                        <strong>课程名称：</strong>
+                        <div contenteditable="true" class="edit-area" onblur="saveContent('course${courseCount}_title', this.textContent)">新课程名称</div>
+                    </div>
+                    <div>
+                        <strong>课程时长：</strong>
+                        <div contenteditable="true" class="edit-area" onblur="saveContent('course${courseCount}_duration', this.textContent)">4周</div>
+                    </div>
+                    <div>
+                        <strong>课程难度：</strong>
+                        <div contenteditable="true" class="edit-area" onblur="saveContent('course${courseCount}_level', this.textContent)">初级</div>
+                    </div>
+                    <div>
+                        <strong>授课方式：</strong>
+                        <div contenteditable="true" class="edit-area" onblur="saveContent('course${courseCount}_method', this.textContent)">在线直播</div>
+                    </div>
+                </div>
+                
+                <!-- 课程描述 -->
+                <div>
+                    <strong>课程描述：</strong>
+                    <div contenteditable="true" class="edit-area" style="min-height: 80px;" onblur="saveContent('course${courseCount}_desc', this.textContent)">请输入课程描述...</div>
+                </div>
+                
+                <!-- 文件上传区域 -->
+                <div>
+                    <strong>课程材料：</strong>
+                    <div class="upload-area" onclick="document.getElementById('fileUpload${courseCount}').click()">
+                        <span id="filePreview${courseCount}">📁 点击上传课程文件</span>
+                        <small style="margin-top: 5px; color: #666;">支持图片、PDF、文档等多种格式</small>
+                    </div>
+                    <input type="file" id="fileUpload${courseCount}" multiple accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip" style="display: none;" onchange="handleFileUpload(${courseCount})">
+                    <div id="fileList${courseCount}"></div>
+                </div>
+                
+                <button class="btn btn-danger" onclick="deleteCourse(${courseCount})")">🗑️ 删除课程</button>
+            `;
+            
+            // 插入到添加按钮之前
+            const addButton = document.querySelector('.btn');
+            courseList.insertBefore(newCourse, addButton.parentElement);
+            
+            showSuccess('✅ 新课程已添加！');
+        }
+        
+        // 显示成功提示
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+        
+        // 页面加载时恢复数据
+        window.onload = function() {
+            const courseCards = document.querySelectorAll('.course-card');
+            courseCards.forEach((card, index) => {
+                const courseId = index + 1;
+                
+                // 恢复文字内容
+                const title = localStorage.getItem('course' + courseId + '_title');
+                if (title) {
+                    card.querySelector('.edit-area').textContent = title;
+                }
+                
+                // 恢复文件列表
+                const courseFiles = JSON.parse(localStorage.getItem('courseFiles' + courseId) || '[]');
+                const fileList = card.querySelector('#fileList' + courseId);
+                
+                courseFiles.forEach(file => {
+                    // 根据文件类型选择图标
+                    let fileIcon = '📄';
+                    if (file.type.startsWith('image/')) {
+                        fileIcon = '🖼️';
+                    } else if (file.type === 'application/pdf') {
+                        fileIcon = '📊';
+                    } else if (file.type.includes('document')) {
+                        fileIcon = '📝';
+                    } else if (file.type.includes('presentation')) {
+                        fileIcon = '🎬';
+                    } else if (file.type.includes('spreadsheet')) {
+                        fileIcon = '📈';
+                    } else if (file.type === 'application/zip') {
+                        fileIcon = '📦';
+                    }
+                    
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = `
+                        <div style="display: flex; align-items: center;">
+                            <span class="file-icon">${fileIcon}</span>
+                            <span>${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                        </div>
+                        <button onclick="deleteFile(this, ${courseId}, '${file.name}')" style="background: none; border: none; color: #f44336; cursor: pointer;">❌</button>
+                    `;
+                    
+                    fileList.appendChild(fileItem);
+                });
+            });
+        };
+    </script>
+</body>
+</html>

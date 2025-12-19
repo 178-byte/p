@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集 - 个人网站</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>个人品牌</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我</a></li>
+                <li><a href="portfolio.html" class="active">作品集</a></li>
+                <li><a href="skills.html">技能服务</a></li>
+                <li><a href="courses.html">课程管理</a></li>
+                <li><a href="resume.html">履历</a></li>
+                <li><a href="blog.html">博客</a></li>
+                <li><a href="contact.html">联系我</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 自动保存提示 -->
+    <div id="autoSaveNotification" class="auto-save-notification" style="display:none;">
+        ✅ 内容已自动保存
+    </div>
+
+    <!-- 简单编辑提示 -->
+    <div style="position: fixed; top: 100px; left: 20px; background: #3498db; color: white; padding: 10px; border-radius: 5px; font-size: 14px; z-index: 1000;">
+        💡 点击任何文字即可编辑
+    </div>
+
+    <!-- 页面头部 -->
+    <header class="page-header">
+        <h1 onclick="makeEditable(this)">作品集</h1>
+        <p onclick="makeEditable(this)">展示我的项目作品和设计案例</p>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="page-content">
+        <div class="container">
+            <!-- 项目展示 -->
+            <section class="section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h2 onclick="makeEditable(this)">项目展示</h2>
+                    <div>
+                        <button onclick="addNewProject()" class="btn btn-primary" style="margin-right: 10px;">+ 添加项目</button>
+                        <button onclick="showUploadHelp()" class="btn btn-secondary">📷 上传图片</button>
+                    </div>
+                </div>
+                
+                <!-- 上传帮助提示 -->
+                <div id="uploadHelp" style="display: none; background: #e8f5e8; border: 2px solid #27ae60; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                    <h4>📷 图片上传指南</h4>
+                    <ol style="margin: 10px 0; padding-left: 20px;">
+                        <li>点击任意项目卡片中的灰色图片区域</li>
+                        <li>选择您的项目截图文件</li>
+                        <li>图片会自动显示并保存</li>
+                        <li>支持 JPG、PNG、GIF 格式</li>
+                    </ol>
+                    <button onclick="hideUploadHelp()" style="background: #27ae60; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer;">知道了</button>
+                </div>
+                
+                <!-- 项目筛选 -->
+                <div style="margin-bottom: 2rem;">
+                    <button onclick="makeEditable(this)" class="btn btn-secondary" style="margin-right: 10px;">全部项目</button>
+                    <button onclick="makeEditable(this)" class="btn btn-secondary" style="margin-right: 10px;">Web开发</button>
+                    <button onclick="makeEditable(this)" class="btn btn-secondary" style="margin-right: 10px;">UI设计</button>
+                    <button onclick="makeEditable(this)" class="btn btn-secondary">移动应用</button>
+                </div>
+
+                <!-- 作品网格 -->
+                <div class="portfolio-grid" id="portfolioGrid">
+                    <!-- 项目1 - 简化可编辑版本 -->
+                    <div class="portfolio-item" data-project-id="1" style="position: relative; z-index: 1; border: 2px solid #e0e0e0; border-radius: 10px; padding: 15px; margin: 10px 0;">
+                        <div class="portfolio-image" style="position: relative; width: 100%; height: 200px; background: #f5f5f5; border: 2px dashed #ccc; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="uploadImage(this)">
+                            <span id="imageText1">📷 点击上传项目截图</span>
+                            <input type="file" accept="image/*" onchange="handleImageUpload(event, 1)" style="display: none;" id="upload1">
+                        </div>
+                        <div class="portfolio-content" style="margin-top: 15px;">
+                            <h3 onclick="makeEditable(this)" style="cursor: pointer; padding: 5px; border-radius: 3px;">电商平台重构项目</h3>
+                            <p><strong>类别：</strong> <span onclick="makeEditable(this)" style="cursor: pointer; background: rgba(52,152,219,0.1); padding: 2px 5px; border-radius: 3px;">Web开发</span></p>
+                            <p><strong>技术栈：</strong> <span onclick="makeEditable(this)" style="cursor: pointer; background: rgba(52,152,219,0.1); padding: 2px 5px; border-radius: 3px;">React, Node.js, MongoDB</span></p>
+                            <p><strong>项目时长：</strong> <span onclick="makeEditable(this)" style="cursor: pointer; background: rgba(52,152,219,0.1); padding: 2px 5px; border-radius: 3px;">6个月</span></p>
+                            <p><strong>成果：</strong> <span onclick="makeEditable(this)" style="cursor: pointer; background: rgba(52,152,219,0.1); padding: 2px 5px; border-radius: 3px;">性能提升40%，用户体验显著改善</span></p>
+                            <div class="project-description" style="margin-top: 10px;">
+                                <strong>项目描述：</strong>
+                                <div onclick="makeEditable(this)" style="border: 2px dashed #ddd; padding: 10px; border-radius: 5px; margin-top: 5px; min-height: 80px; cursor: pointer;">这是一个大型电商平台的重构项目，采用现代化技术栈重构原有系统，大幅提升了系统性能和用户体验。</div>
+                            </div>
+                            <button class="btn btn-primary" onclick="showProjectDetails(1)" style="margin-top: 10px;">查看详情</button>
+                            <button onclick="deleteProject(1)" style="background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin-left: 10px; cursor: pointer;">删除项目</button>
+                        </div>
+                    </div>
+                            <div class="project-details-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 10000; max-width: 800px; width: 90%; max-height: 80vh; overflow-y: auto;">
+                                <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h3 class="modal-title editable-text">项目详情</h3>
+                                    <button class="close-modal" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+                                </div>
+                                <div class="modal-content">
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目简介</h4>
+                                        <p class="editable-text" style="line-height: 1.6;">开发健康管理类移动应用，帮助用户记录健康数据、监测健康状况并提供个性化健康建议。支持iOS和Android平台，累计下载量超过10万。</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">技术特点</h4>
+                                        <ul class="editable-text">
+                                            <li>采用React Native实现跨平台开发，提高开发效率</li>
+                                            <li>Firebase后端服务支持实时数据同步</li>
+                                            <li>集成Apple HealthKit和Google Fit健康数据</li>
+                                            <li>AI算法提供个性化健康分析和建议</li>
+                                            <li>离线功能支持，数据自动同步</li>
+                                        </ul>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目成果</h4>
+                                        <ul class="editable-text">
+                                            <li>App Store和Google Play评分均在4.8分以上</li>
+                                            <li>用户日均使用时长达到25分钟</li>
+                                            <li>帮助用户平均每日步数增加3000步</li>
+                                            <li>健康提醒功能用户满意度达到96%</li>
+                                        </ul>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">用户反馈</h4>
+                                        <p class="editable-text" style="line-height: 1.6;">"这款健康管理应用改变了我的生活方式，每天提醒我运动和记录饮食，还能看到自己健康数据的趋势变化，非常实用！"</p>
+                                        <p class="editable-text" style="color: #666; font-style: italic; margin-top: 0.5rem;">—— 普通用户张先生</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目亮点</h4>
+                                        <ul class="editable-text">
+                                            <li>智能健康数据分析，提供个性化建议</li>
+                                            <li>美观易用的界面设计，操作简单直观</li>
+                                            <li>严格的数据隐私保护，符合医疗行业标准</li>
+                                            <li>多语言支持，面向全球用户</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 项目2 - 点击可编辑版本 -->
+                    <div class="portfolio-item" data-project-id="2" style="position: relative; z-index: 1;">
+                        <div class="portfolio-image">
+                            <span class="editable-text project-image-placeholder">UI设计预览</span>
+                            <div class="project-image-upload">
+                                <input type="file" accept="image/*" class="image-upload-input" style="display: none;">
+                            </div>
+                            <div class="project-actions" style="position: absolute; top: 10px; right: 10px;">
+                                <button class="btn-delete-project" style="background: rgba(231,76,60,0.8); color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer;">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 class="editable-text">企业级管理系统UI设计</h3>
+                            <p><strong>类别：</strong> <span class="editable-text">UI设计</span></p>
+                            <p><strong>工具：</strong> <span class="editable-text">Figma, Adobe XD</span></p>
+                            <p><strong>设计周期：</strong> <span class="editable-text">3个月</span></p>
+                            <p><strong>特色：</strong> <span class="editable-text">响应式设计，组件化思维</span></p>
+                            <div class="project-description" style="margin-top: 10px;">
+                                <strong>项目描述：</strong>
+                                <div class="editable-text project-desc" style="border: 1px dashed #ccc; padding: 10px; border-radius: 5px; margin-top: 5px; min-height: 80px;">为大型企业管理系统设计现代化的用户界面，注重用户体验和系统易用性。</div>
+                            </div>
+                            <button class="btn btn-primary view-details" style="margin-top: 10px;">查看详情</button>
+                            <div class="project-details-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 10000; max-width: 800px; width: 90%; max-height: 80vh; overflow-y: auto;">
+                                <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h3 class="modal-title editable-text">项目详情</h3>
+                                    <button class="close-modal" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+                                </div>
+                                <div class="modal-content">
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目简介</h4>
+                                        <p class="editable-text" style="line-height: 1.6;">开发健康管理类移动应用，帮助用户记录健康数据、监测健康状况并提供个性化健康建议。支持iOS和Android平台，累计下载量超过10万。</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">技术特点</h4>
+                                        <ul class="editable-text">
+                                            <li>采用React Native实现跨平台开发，提高开发效率</li>
+                                            <li>Firebase后端服务支持实时数据同步</li>
+                                            <li>集成Apple HealthKit和Google Fit健康数据</li>
+                                            <li>AI算法提供个性化健康分析和建议</li>
+                                            <li>离线功能支持，数据自动同步</li>
+                                        </ul>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目成果</h4>
+                                        <ul class="editable-text">
+                                            <li>App Store和Google Play评分均在4.8分以上</li>
+                                            <li>用户日均使用时长达到25分钟</li>
+                                            <li>帮助用户平均每日步数增加3000步</li>
+                                            <li>健康提醒功能用户满意度达到96%</li>
+                                        </ul>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">用户反馈</h4>
+                                        <p class="editable-text" style="line-height: 1.6;">"这款健康管理应用改变了我的生活方式，每天提醒我运动和记录饮食，还能看到自己健康数据的趋势变化，非常实用！"</p>
+                                        <p class="editable-text" style="color: #666; font-style: italic; margin-top: 0.5rem;">—— 普通用户张先生</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目亮点</h4>
+                                        <ul class="editable-text">
+                                            <li>智能健康数据分析，提供个性化建议</li>
+                                            <li>美观易用的界面设计，操作简单直观</li>
+                                            <li>严格的数据隐私保护，符合医疗行业标准</li>
+                                            <li>多语言支持，面向全球用户</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 项目3 - 可编辑版本 -->
+                    <div class="portfolio-item" data-project-id="3">
+                        <div class="portfolio-image">
+                            <span contenteditable="false">移动应用截图</span>
+                            <div class="project-image-upload" style="display: none;">
+                                <input type="file" accept="image/*" class="image-upload-input" style="display: none;">
+                                <button class="btn-upload-image" style="background: rgba(0,0,0,0.7); color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">上传图片</button>
+                            </div>
+                            <div class="project-actions" style="display: none; position: absolute; top: 10px; right: 10px;">
+                                <button class="btn-edit-image" style="background: rgba(0,0,0,0.5); color: white; border: none; padding: 5px; border-radius: 3px; margin-right: 5px; cursor: pointer;">📷</button>
+                                <button class="btn-delete-project" style="background: rgba(231,76,60,0.8); color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer;">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 contenteditable="false">健康管理移动应用</h3>
+                            <p><strong>类别：</strong> <span contenteditable="false">移动应用</span></p>
+                            <p><strong>平台：</strong> <span contenteditable="false">iOS/Android</span></p>
+                            <p><strong>技术：</strong> <span contenteditable="false">React Native, Firebase</span></p>
+                            <p><strong>下载量：</strong> <span contenteditable="false">10万+</span></p>
+                            <div class="project-description" style="margin-top: 10px;">
+                                <strong>项目描述：</strong>
+                                <div contenteditable="false" style="border: 1px dashed #ccc; padding: 10px; border-radius: 5px; margin-top: 5px; min-height: 80px;">开发健康管理类移动应用，帮助用户记录健康数据并提供个性化健康建议。</div>
+                            </div>
+                            <button class="btn btn-primary view-details" style="margin-top: 10px;">查看详情</button>
+                            <div class="project-details-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 10000; max-width: 800px; width: 90%; max-height: 80vh; overflow-y: auto;">
+                                <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h3 class="modal-title editable-text">项目详情</h3>
+                                    <button class="close-modal" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+                                </div>
+                                <div class="modal-content">
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目简介</h4>
+                                        <p class="editable-text" style="line-height: 1.6;">开发健康管理类移动应用，帮助用户记录健康数据、监测健康状况并提供个性化健康建议。支持iOS和Android平台，累计下载量超过10万。</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">技术特点</h4>
+                                        <ul class="editable-text">
+                                            <li>采用React Native实现跨平台开发，提高开发效率</li>
+                                            <li>Firebase后端服务支持实时数据同步</li>
+                                            <li>集成Apple HealthKit和Google Fit健康数据</li>
+                                            <li>AI算法提供个性化健康分析和建议</li>
+                                            <li>离线功能支持，数据自动同步</li>
+                                        </ul>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目成果</h4>
+                                        <ul class="editable-text">
+                                            <li>App Store和Google Play评分均在4.8分以上</li>
+                                            <li>用户日均使用时长达到25分钟</li>
+                                            <li>帮助用户平均每日步数增加3000步</li>
+                                            <li>健康提醒功能用户满意度达到96%</li>
+                                        </ul>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">用户反馈</h4>
+                                        <p class="editable-text" style="line-height: 1.6;">"这款健康管理应用改变了我的生活方式，每天提醒我运动和记录饮食，还能看到自己健康数据的趋势变化，非常实用！"</p>
+                                        <p class="editable-text" style="color: #666; font-style: italic; margin-top: 0.5rem;">—— 普通用户张先生</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目亮点</h4>
+                                        <ul class="editable-text">
+                                            <li>智能健康数据分析，提供个性化建议</li>
+                                            <li>美观易用的界面设计，操作简单直观</li>
+                                            <li>严格的数据隐私保护，符合医疗行业标准</li>
+                                            <li>多语言支持，面向全球用户</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 项目4 - 可编辑版本 -->
+                    <div class="portfolio-item" data-project-id="4">
+                        <div class="portfolio-image">
+                            <span contenteditable="false">数据可视化</span>
+                            <div class="project-image-upload" style="display: none;">
+                                <input type="file" accept="image/*" class="image-upload-input" style="display: none;">
+                                <button class="btn-upload-image" style="background: rgba(0,0,0,0.7); color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">上传图片</button>
+                            </div>
+                            <div class="project-actions" style="display: none; position: absolute; top: 10px; right: 10px;">
+                                <button class="btn-edit-image" style="background: rgba(0,0,0,0.5); color: white; border: none; padding: 5px; border-radius: 3px; margin-right: 5px; cursor: pointer;">📷</button>
+                                <button class="btn-delete-project" style="background: rgba(231,76,60,0.8); color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer;">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 contenteditable="false">大数据分析平台</h3>
+                            <p><strong>类别：</strong> <span contenteditable="false">数据分析</span></p>
+                            <p><strong>技术：</strong> <span contenteditable="false">D3.js, Python, PostgreSQL</span></p>
+                            <p><strong>处理能力：</strong> <span contenteditable="false">百万级数据实时分析</span></p>
+                            <p><strong>价值：</strong> <span contenteditable="false">为企业决策提供数据支持</span></p>
+                            <div class="project-description" style="margin-top: 10px;">
+                                <strong>项目描述：</strong>
+                                <div contenteditable="false" style="border: 1px dashed #ccc; padding: 10px; border-radius: 5px; margin-top: 5px; min-height: 80px;">构建大数据分析平台，实现数据采集、处理、分析和可视化展示的一体化解决方案。</div>
+                            </div>
+                            <button class="btn btn-primary view-details" style="margin-top: 10px;">查看详情</button>
+                            <div class="project-details-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 10000; max-width: 800px; width: 90%; max-height: 80vh; overflow-y: auto;">
+                                <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h3 class="modal-title editable-text">项目详情</h3>
+                                    <button class="close-modal" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+                                </div>
+                                <div class="modal-content">
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目简介</h4>
+                                        <p class="editable-text" style="line-height: 1.6;">开发健康管理类移动应用，帮助用户记录健康数据、监测健康状况并提供个性化健康建议。支持iOS和Android平台，累计下载量超过10万。</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">技术特点</h4>
+                                        <ul class="editable-text">
+                                            <li>采用React Native实现跨平台开发，提高开发效率</li>
+                                            <li>Firebase后端服务支持实时数据同步</li>
+                                            <li>集成Apple HealthKit和Google Fit健康数据</li>
+                                            <li>AI算法提供个性化健康分析和建议</li>
+                                            <li>离线功能支持，数据自动同步</li>
+                                        </ul>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目成果</h4>
+                                        <ul class="editable-text">
+                                            <li>App Store和Google Play评分均在4.8分以上</li>
+                                            <li>用户日均使用时长达到25分钟</li>
+                                            <li>帮助用户平均每日步数增加3000步</li>
+                                            <li>健康提醒功能用户满意度达到96%</li>
+                                        </ul>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">用户反馈</h4>
+                                        <p class="editable-text" style="line-height: 1.6;">"这款健康管理应用改变了我的生活方式，每天提醒我运动和记录饮食，还能看到自己健康数据的趋势变化，非常实用！"</p>
+                                        <p class="editable-text" style="color: #666; font-style: italic; margin-top: 0.5rem;">—— 普通用户张先生</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目亮点</h4>
+                                        <ul class="editable-text">
+                                            <li>智能健康数据分析，提供个性化建议</li>
+                                            <li>美观易用的界面设计，操作简单直观</li>
+                                            <li>严格的数据隐私保护，符合医疗行业标准</li>
+                                            <li>多语言支持，面向全球用户</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 项目5 - 可编辑版本 -->
+                    <div class="portfolio-item" data-project-id="5">
+                        <div class="portfolio-image">
+                            <span contenteditable="false">API接口管理</span>
+                            <div class="project-image-upload" style="display: none;">
+                                <input type="file" accept="image/*" class="image-upload-input" style="display: none;">
+                                <button class="btn-upload-image" style="background: rgba(0,0,0,0.7); color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">上传图片</button>
+                            </div>
+                            <div class="project-actions" style="display: none; position: absolute; top: 10px; right: 10px;">
+                                <button class="btn-edit-image" style="background: rgba(0,0,0,0.5); color: white; border: none; padding: 5px; border-radius: 3px; margin-right: 5px; cursor: pointer;">📷</button>
+                                <button class="btn-delete-project" style="background: rgba(231,76,60,0.8); color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer;">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 contenteditable="false">微服务架构项目</h3>
+                            <p><strong>类别：</strong> <span contenteditable="false">后端开发</span></p>
+                            <p><strong>架构：</strong> <span contenteditable="false">Spring Cloud, Docker</span></p>
+                            <p><strong>服务数量：</strong> <span contenteditable="false">15+微服务</span></p>
+                            <p><strong>优势：</strong> <span contenteditable="false">高可用、易扩展</span></p>
+                            <div class="project-description" style="margin-top: 10px;">
+                                <strong>项目描述：</strong>
+                                <div contenteditable="false" style="border: 1px dashed #ccc; padding: 10px; border-radius: 5px; margin-top: 5px; min-height: 80px;">基于微服务架构的企业级应用系统，实现服务解耦和灵活扩展。</div>
+                            </div>
+                            <button class="btn btn-primary view-details" style="margin-top: 10px;">查看详情</button>
+                            <div class="project-details-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 10000; max-width: 800px; width: 90%; max-height: 80vh; overflow-y: auto;">
+                                <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h3 class="modal-title editable-text">项目详情</h3>
+                                    <button class="close-modal" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+                                </div>
+                                <div class="modal-content">
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目简介</h4>
+                                        <p class="editable-text" style="line-height: 1.6;">开发健康管理类移动应用，帮助用户记录健康数据、监测健康状况并提供个性化健康建议。支持iOS和Android平台，累计下载量超过10万。</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">技术特点</h4>
+                                        <ul class="editable-text">
+                                            <li>采用React Native实现跨平台开发，提高开发效率</li>
+                                            <li>Firebase后端服务支持实时数据同步</li>
+                                            <li>集成Apple HealthKit和Google Fit健康数据</li>
+                                            <li>AI算法提供个性化健康分析和建议</li>
+                                            <li>离线功能支持，数据自动同步</li>
+                                        </ul>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目成果</h4>
+                                        <ul class="editable-text">
+                                            <li>App Store和Google Play评分均在4.8分以上</li>
+                                            <li>用户日均使用时长达到25分钟</li>
+                                            <li>帮助用户平均每日步数增加3000步</li>
+                                            <li>健康提醒功能用户满意度达到96%</li>
+                                        </ul>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">用户反馈</h4>
+                                        <p class="editable-text" style="line-height: 1.6;">"这款健康管理应用改变了我的生活方式，每天提醒我运动和记录饮食，还能看到自己健康数据的趋势变化，非常实用！"</p>
+                                        <p class="editable-text" style="color: #666; font-style: italic; margin-top: 0.5rem;">—— 普通用户张先生</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目亮点</h4>
+                                        <ul class="editable-text">
+                                            <li>智能健康数据分析，提供个性化建议</li>
+                                            <li>美观易用的界面设计，操作简单直观</li>
+                                            <li>严格的数据隐私保护，符合医疗行业标准</li>
+                                            <li>多语言支持，面向全球用户</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 项目6 - 可编辑版本 -->
+                    <div class="portfolio-item" data-project-id="6">
+                        <div class="portfolio-image">
+                            <span contenteditable="false">品牌设计</span>
+                            <div class="project-image-upload" style="display: none;">
+                                <input type="file" accept="image/*" class="image-upload-input" style="display: none;">
+                                <button class="btn-upload-image" style="background: rgba(0,0,0,0.7); color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">上传图片</button>
+                            </div>
+                            <div class="project-actions" style="display: none; position: absolute; top: 10px; right: 10px;">
+                                <button class="btn-edit-image" style="background: rgba(0,0,0,0.5); color: white; border: none; padding: 5px; border-radius: 3px; margin-right: 5px; cursor: pointer;">📷</button>
+                                <button class="btn-delete-project" style="background: rgba(231,76,60,0.8); color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer;">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 contenteditable="false">品牌形象设计项目</h3>
+                            <p><strong>类别：</strong> <span contenteditable="false">品牌设计</span></p>
+                            <p><strong>范围：</strong> <span contenteditable="false">Logo, VI系统, 宣传物料</span></p>
+                            <p><strong>客户：</strong> <span contenteditable="false">知名科技公司</span></p>
+                            <p><strong>成果：</strong> <span contenteditable="false">品牌识别度提升60%</span></p>
+                            <div class="project-description" style="margin-top: 10px;">
+                                <strong>项目描述：</strong>
+                                <div contenteditable="false" style="border: 1px dashed #ccc; padding: 10px; border-radius: 5px; margin-top: 5px; min-height: 80px;">为知名科技公司提供品牌形象设计服务，包括品牌定位、视觉识别系统设计和宣传物料制作。</div>
+                            </div>
+                            <button class="btn btn-primary view-details" style="margin-top: 10px;">查看详情</button>
+                            <div class="project-details-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 10000; max-width: 800px; width: 90%; max-height: 80vh; overflow-y: auto;">
+                                <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h3 class="modal-title editable-text">项目详情</h3>
+                                    <button class="close-modal" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+                                </div>
+                                <div class="modal-content">
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目简介</h4>
+                                        <p class="editable-text" style="line-height: 1.6;">开发健康管理类移动应用，帮助用户记录健康数据、监测健康状况并提供个性化健康建议。支持iOS和Android平台，累计下载量超过10万。</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">技术特点</h4>
+                                        <ul class="editable-text">
+                                            <li>采用React Native实现跨平台开发，提高开发效率</li>
+                                            <li>Firebase后端服务支持实时数据同步</li>
+                                            <li>集成Apple HealthKit和Google Fit健康数据</li>
+                                            <li>AI算法提供个性化健康分析和建议</li>
+                                            <li>离线功能支持，数据自动同步</li>
+                                        </ul>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目成果</h4>
+                                        <ul class="editable-text">
+                                            <li>App Store和Google Play评分均在4.8分以上</li>
+                                            <li>用户日均使用时长达到25分钟</li>
+                                            <li>帮助用户平均每日步数增加3000步</li>
+                                            <li>健康提醒功能用户满意度达到96%</li>
+                                        </ul>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">用户反馈</h4>
+                                        <p class="editable-text" style="line-height: 1.6;">"这款健康管理应用改变了我的生活方式，每天提醒我运动和记录饮食，还能看到自己健康数据的趋势变化，非常实用！"</p>
+                                        <p class="editable-text" style="color: #666; font-style: italic; margin-top: 0.5rem;">—— 普通用户张先生</p>
+                                    </div>
+                                    <div class="detail-section">
+                                        <h4 class="editable-text">项目亮点</h4>
+                                        <ul class="editable-text">
+                                            <li>智能健康数据分析，提供个性化建议</li>
+                                            <li>美观易用的界面设计，操作简单直观</li>
+                                            <li>严格的数据隐私保护，符合医疗行业标准</li>
+                                            <li>多语言支持，面向全球用户</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 保存按钮 -->
+                <div style="text-align: center; margin-top: 2rem; display: none;" id="savePortfolioSection">
+                    <button id="savePortfolioBtn" class="btn btn-primary" style="margin-right: 10px;">保存修改</button>
+                    <button id="cancelEditBtn" class="btn btn-secondary">取消编辑</button>
+                </div>
+            </section>
+
+            <!-- 项目统计 -->
+            <section class="section">
+                <h2>项目统计</h2>
+                <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div class="stats-item" style="text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 10px;">
+                        <h3 contenteditable="false" style="font-size: 3rem; color: #3498db; margin-bottom: 1rem;">25+</h3>
+                        <p contenteditable="false">已完成项目</p>
+                    </div>
+                    <div class="stats-item" style="text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 10px;">
+                        <h3 contenteditable="false" style="font-size: 3rem; color: #3498db; margin-bottom: 1rem;">15+</h3>
+                        <p contenteditable="false">合作客户</p>
+                    </div>
+                    <div class="stats-item" style="text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 10px;">
+                        <h3 contenteditable="false" style="font-size: 3rem; color: #3498db; margin-bottom: 1rem;">3年</h3>
+                        <p contenteditable="false">行业经验</p>
+                    </div>
+                    <div class="stats-item" style="text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 10px;">
+                        <h3 contenteditable="false" style="font-size: 3rem; color: #3498db; margin-bottom: 1rem;">98%</h3>
+                        <p contenteditable="false">客户满意度</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 个人网站. 保留所有权利.</p>
+            <p><a href="privacy.html">隐私政策</a> | <a href="sitemap.html">站点地图</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // 简单的点击编辑功能
+        function makeEditable(element) {
+            if (element.contentEditable === 'true') return;
+            
+            const originalText = element.textContent;
+            element.contentEditable = true;
+            element.style.border = '2px dashed #3498db';
+            element.style.background = 'rgba(52, 152, 219, 0.1)';
+            element.style.padding = '5px';
+            element.focus();
+            
+            // 选中全部文本
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(element);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            
+            // 失去焦点时保存
+            function saveEdit() {
+                element.contentEditable = false;
+                element.style.border = 'none';
+                element.style.background = 'transparent';
+                element.style.padding = '0';
+                
+                // 保存到localStorage
+                localStorage.setItem('portfolio-' + element.textContent.substring(0, 10), element.textContent);
+                
+                // 显示保存提示
+                const notif = document.getElementById('autoSaveNotification');
+                notif.style.display = 'block';
+                setTimeout(() => {
+                    notif.style.display = 'none';
+                }, 2000);
+            }
+            
+            element.addEventListener('blur', saveEdit, { once: true });
+            element.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    element.blur();
+                }
+                if (e.key === 'Escape') {
+                    element.textContent = originalText;
+                    element.blur();
+                }
+            });
+        }
+        
+        // 图片上传功能
+        function uploadImage(element) {
+            const projectId = element.nextElementSibling.id;
+            document.getElementById(projectId).click();
+        }
+        
+        // 处理图片上传
+        function handleImageUpload(event, projectId) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageContainer = event.target.parentElement;
+                    imageContainer.innerHTML = `<img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">`;
+                    imageContainer.onclick = function() {
+                        document.getElementById('upload' + projectId).click();
+                    };
+                    
+                    // 保存图片到localStorage
+                    localStorage.setItem('projectImage' + projectId, e.target.result);
+                    
+                    // 显示成功提示
+                    showSaveNotification('✅ 图片上传成功！');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // 显示项目详情
+        function showProjectDetails(projectId) {
+            alert('项目详情功能\n\n您可以:\n• 点击任意文字进行编辑\n• 修改项目信息\n• 所有更改自动保存');
+        }
+        
+        // 删除项目
+        function deleteProject(projectId) {
+            if (confirm('确定要删除这个项目吗？')) {
+                const projectElement = document.querySelector('[data-project-id="' + projectId + '"]');
+                if (projectElement) {
+                    projectElement.remove();
+                    localStorage.removeItem('projectImage' + projectId);
+                    showSaveNotification('✅ 项目已删除');
+                }
+            }
+        }
+        
+        // 显示上传帮助
+        function showUploadHelp() {
+            document.getElementById('uploadHelp').style.display = 'block';
+        }
+        
+        // 隐藏上传帮助
+        function hideUploadHelp() {
+            document.getElementById('uploadHelp').style.display = 'none';
+        }
+        
+        // 显示保存通知
+        function showSaveNotification(message) {
+            const notification = document.getElementById('autoSaveNotification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        // 添加新项目
+        function addNewProject() {
+            const portfolioGrid = document.getElementById('portfolioGrid');
+            const projectId = Date.now();
+            
+            const newProject = document.createElement('div');
+            newProject.className = 'portfolio-item';
+            newProject.dataset.projectId = projectId;
+            newProject.style.cssText = 'position: relative; z-index: 1; border: 2px solid #e0e0e0; border-radius: 10px; padding: 15px; margin: 10px 0;';
+            
+            newProject.innerHTML = `
+                <div class="portfolio-image" style="position: relative; width: 100%; height: 200px; background: #f5f5f5; border: 2px dashed #ccc; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="uploadImage(this)">
+                    <span>📷 点击上传项目截图</span>
+                    <input type="file" accept="image/*" onchange="handleImageUpload(event, ${projectId})" style="display: none;" id="upload${projectId}">
+                </div>
+                <div class="portfolio-content" style="margin-top: 15px;">
+                    <h3 onclick="makeEditable(this)" style="cursor: pointer; padding: 5px; border-radius: 3px;">新项目名称</h3>
+                    <p><strong>类别：</strong> <span onclick="makeEditable(this)" style="cursor: pointer; background: rgba(52,152,219,0.1); padding: 2px 5px; border-radius: 3px;">项目类别</span></p>
+                    <p><strong>技术栈：</strong> <span onclick="makeEditable(this)" style="cursor: pointer; background: rgba(52,152,219,0.1); padding: 2px 5px; border-radius: 3px;">使用技术</span></p>
+                    <p><strong>项目时长：</strong> <span onclick="makeEditable(this)" style="cursor: pointer; background: rgba(52,152,219,0.1); padding: 2px 5px; border-radius: 3px;">项目周期</span></p>
+                    <p><strong>成果：</strong> <span onclick="makeEditable(this)" style="cursor: pointer; background: rgba(52,152,219,0.1); padding: 2px 5px; border-radius: 3px;">项目成果</span></p>
+                    <div class="project-description" style="margin-top: 10px;">
+                        <strong>项目描述：</strong>
+                        <div onclick="makeEditable(this)" style="border: 2px dashed #ddd; padding: 10px; border-radius: 5px; margin-top: 5px; min-height: 80px; cursor: pointer;">请添加项目详细描述...</div>
+                    </div>
+                    <button class="btn btn-primary" onclick="showProjectDetails(${projectId})" style="margin-top: 10px;">查看详情</button>
+                    <button onclick="deleteProject(${projectId})" style="background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin-left: 10px; cursor: pointer;">删除项目</button>
+                </div>
+            `;
+            
+            portfolioGrid.appendChild(newProject);
+            showSaveNotification('✅ 新项目已添加！点击文字即可编辑');
+        }
+        
+        // 页面加载时恢复保存的内容
+        window.addEventListener('load', function() {
+            // 恢复保存的图片
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('projectImage')) {
+                    const projectId = key.replace('projectImage', '');
+                    const imageData = localStorage.getItem(key);
+                    
+                    // 恢复图片显示
+                    const imageContainer = document.querySelector(`#upload${projectId}`)?.parentElement;
+                    if (imageContainer) {
+                        imageContainer.innerHTML = `<img src="${imageData}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">`;
+                    }
+                }
+            }
+            
+            // 显示欢迎提示
+            setTimeout(() => {
+                showSaveNotification('💡 点击任何文字即可编辑，点击灰色区域上传图片');
+            }, 1000);
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

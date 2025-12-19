@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .editable-text {
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .editable-text:hover {
+            border-color: #3498db;
+            background: rgba(52, 152, 219, 0.1);
+        }
+        .editable-text[contenteditable="true"] {
+            border-color: #2980b9;
+            background: rgba(52, 152, 219, 0.2);
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>编辑功能测试页面</h1>
+    
+    <div class="editable-text">点击这里编辑标题</div>
+    <div class="editable-text">点击这里编辑描述内容</div>
+    <div class="editable-text">点击这里编辑更多文本</div>
+    
+    <div id="notification" class="notification">✅ 已保存</div>
+    
+    <script>
+        // 保存内容
+        function saveContent() {
+            const elements = document.querySelectorAll('.editable-text');
+            const content = [];
+            elements.forEach(el => content.push(el.textContent));
+            localStorage.setItem('testContent', JSON.stringify(content));
+            showNotification();
+        }
+        
+        // 显示通知
+        function showNotification() {
+            const notif = document.getElementById('notification');
+            notif.style.display = 'block';
+            setTimeout(() => {
+                notif.style.display = 'none';
+            }, 2000);
+        }
+        
+        // 加载内容
+        function loadContent() {
+            const saved = localStorage.getItem('testContent');
+            if (saved) {
+                const content = JSON.parse(saved);
+                const elements = document.querySelectorAll('.editable-text');
+                elements.forEach((el, index) => {
+                    if (content[index]) el.textContent = content[index];
+                });
+            }
+        }
+        
+        // 设置编辑功能
+        document.querySelectorAll('.editable-text').forEach(element => {
+            let isEditing = false;
+            let originalText = '';
+            
+            element.addEventListener('click', function(e) {
+                if (!isEditing) {
+                    isEditing = true;
+                    originalText = element.textContent;
+                    element.contentEditable = true;
+                    element.focus();
+                    
+                    // 选中全部文本
+                    const selection = window.getSelection();
+                    const range = document.createRange();
+                    range.selectNodeContents(element);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+            });
+            
+            element.addEventListener('blur', function() {
+                if (isEditing) {
+                    isEditing = false;
+                    element.contentEditable = false;
+                    
+                    if (element.textContent !== originalText) {
+                        saveContent();
+                    }
+                }
+            });
+            
+            element.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    element.blur();
+                }
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    element.textContent = originalText;
+                    element.blur();
+                }
+            });
+        });
+        
+        // 页面加载时恢复内容
+        loadContent();
+    </script>
+</body>
+</html>
